@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Earning NG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #6f42c1;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+        }
+        
+        .balance-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 5px solid #6f42c1;
+        }
+        
+        .balance-amount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #6f42c1;
+            margin: 10px 0;
+        }
+        
+        .per-day {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 48%;
+            text-align: center;
+            border-left: 5px solid #6f42c1;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6f42c1;
+            margin: 5px 0;
+        }
+        
+        .action-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .action-btn {
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 48%;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .action-btn:hover {
+            background-color: #5a32b0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .task-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #6f42c1;
+        }
+        
+        .task-title {
+            margin-bottom: 15px;
+            color: #6f42c1;
+            font-size: 1.5rem;
+        }
+        
+        .task-list {
+            list-style-type: none;
+        }
+        
+        .task-item {
+            padding: 15px 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .task-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .task-reward {
+            background-color: #6f42c1;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .task-btn {
+            background-color: #6f42c1;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .task-btn:hover {
+            background-color: #5a32b0;
+            transform: scale(1.05);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            color: #777;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .naira-symbol {
+            font-weight: bold;
+        }
+        
+        .completed {
+            background-color: #28a745;
+        }
+        
+        .countdown {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .auto-claim-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin: 0 10px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #6f42c1;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Easy Earning NG</h1>
+            <p>Earn Naira by completing simple tasks</p>
+        </header>
+        
+        <div class="balance-card">
+            <h2>Available Balance</h2>
+            <div class="balance-amount" id="balance">₦0.00</div>
+            <div class="per-day" id="dailyEarning">+₦0 per day</div>
+            <p>Ready to withdraw or transfer</p>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Impressions</h3>
+                <div class="stat-value" id="impressions">0</div>
+                <p>Today: <span id="todayImpressions">0</span></p>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Views</h3>
+                <div class="stat-value" id="views">0</div>
+                <p>Today: <span id="todayViews">0</span></p>
+            </div>
+        </div>
+        
+        <div class="action-container">
+            <button class="action-btn" id="transferBtn">Transfer Money</button>
+            <button class="action-btn" id="withdrawBtn">Withdraw Funds</button>
+        </div>
+        
+        <div class="auto-claim-toggle">
+            <span>Auto Claim:</span>
+            <label class="switch">
+                <input type="checkbox" id="autoClaimToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="task-container">
+            <h2 class="task-title">Available Tasks</h2>
+            <ul class="task-list" id="taskList">
+                <li class="task-item">
+                    <div>
+                        <div>Watch this video (30 sec)</div>
+                        <div class="countdown" id="videoCountdown"></div>
+                    </div>
+                    <div class="task-reward" onclick="completeTask('video', 5000)">₦5,000</div>
+                </li>
+                <li class="task-item">
+                    <div>
+                        <div>Complete this survey (2 min)</div>
+                        <div class="countdown" id="surveyCountdown"></div>
+                    </div>
+                    <div class="task-reward" onclick="completeTask('survey', 6500)">₦6,500</div>
+                </li>
+                <li class="task-item">
+                    <div>
+                        <div>Download this app</div>
+                        <div class="countdown" id="appCountdown"></div>
+                    </div>
+                    <div class="task-reward" onclick="completeTask('app', 3500)">₦3,500</div>
+                </li>
+                <li class="task-item">
+                    <div>
+                        <div>Sign up for newsletter</div>
+                        <div class="countdown" id="newsletterCountdown"></div>
+                    </div>
+                    <div class="task-reward" onclick="completeTask('newsletter', 9000)">₦9,000</div>
+                </li>
+                <li class="task-item">
+                    <div>
+                        <div>Share on social media</div>
+                        <div class="countdown" id="socialCountdown"></div>
+                    </div>
+                    <div class="task-reward" onclick="completeTask('social', 1000)">₦1,000</div>
+                </li>
+                <li class="task-item">
+                    <div>
+                        <div>Daily Free Earnings</div>
+                        <div class="countdown" id="dailyCountdown"></div>
+                    </div>
+                    <div class="task-reward" onclick="claimDailyBonus()">₦4,000</div>
+                </li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>&copy; <span id="currentYear"></span> Easy Earning NG. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize variables
+        let balance = 0;
+        let dailyEarnings = 0;
+        let impressions = 0;
+        let views = 0;
+        let todayImpressions = 0;
+        let todayViews = 0;
+        let autoClaimEnabled = false;
+        let autoClaimInterval;
+        
+        // Task completion status
+        const completedTasks = {
+            video: false,
+            survey: false,
+            app: false,
+            newsletter: false,
+            social: false,
+            daily: false
+        };
+        
+        // Last completion timestamps
+        const lastCompleted = {
+            video: 0,
+            survey: 0,
+            app: 0,
+            newsletter: 0,
+            social: 0,
+            daily: 0
+        };
+        
+        // Task rewards
+        const taskRewards = {
+            video: 5000,
+            survey: 6500,
+            app: 3500,
+            newsletter: 9000,
+            social: 1000,
+            daily: 4000
+        };
+        
+        // DOM elements
+        const balanceElement = document.getElementById('balance');
+        const dailyEarningElement = document.getElementById('dailyEarning');
+        const impressionsElement = document.getElementById('impressions');
+        const viewsElement = document.getElementById('views');
+        const todayImpressionsElement = document.getElementById('todayImpressions');
+        const todayViewsElement = document.getElementById('todayViews');
+        const transferBtn = document.getElementById('transferBtn');
+        const withdrawBtn = document.getElementById('withdrawBtn');
+        const autoClaimToggle = document.getElementById('autoClaimToggle');
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Load saved data from localStorage
+            loadData();
+            
+            // Update UI
+            updateUI();
+            
+            // Start countdown timers
+            updateCountdowns();
+            setInterval(updateCountdowns, 1000);
+            
+            // Set up button event listeners
+            transferBtn.addEventListener('click', function() {
+                window.location.href = 'transfer.html';
+            });
+            
+            withdrawBtn.addEventListener('click', function() {
+                window.location.href = 'withdraw.html';
+            });
+            
+            // Set up auto-claim toggle
+            autoClaimToggle.checked = autoClaimEnabled;
+            autoClaimToggle.addEventListener('change', function() {
+                autoClaimEnabled = this.checked;
+                saveData();
+                
+                if (autoClaimEnabled) {
+                    startAutoClaim();
+                    alert("Auto Claim enabled! Earnings will be automatically added every 24 hours.");
+                } else {
+                    stopAutoClaim();
+                    alert("Auto Claim disabled.");
+                }
+            });
+            
+            // Start auto-claim if enabled
+            if (autoClaimEnabled) {
+                startAutoClaim();
+            }
+            
+            // Check for pending auto claims from previous sessions
+            checkPendingAutoClaims();
+        });
+        
+        // Load data from localStorage
+        function loadData() {
+            const savedData = localStorage.getItem('easyEarningData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                balance = data.balance || 0;
+                dailyEarnings = data.dailyEarnings || 0;
+                impressions = data.impressions || 0;
+                views = data.views || 0;
+                todayImpressions = data.todayImpressions || 0;
+                todayViews = data.todayViews || 0;
+                autoClaimEnabled = data.autoClaimEnabled || false;
+                
+                if (data.completedTasks) {
+                    for (const task in data.completedTasks) {
+                        completedTasks[task] = data.completedTasks[task];
+                    }
+                }
+                
+                if (data.lastCompleted) {
+                    for (const task in data.lastCompleted) {
+                        lastCompleted[task] = data.lastCompleted[task];
+                    }
+                }
+                
+                // Load last auto claim time
+                if (data.lastAutoClaim) {
+                    lastAutoClaim = data.lastAutoClaim;
+                }
+            }
+        }
+        
+        // Save data to localStorage
+        function saveData() {
+            const data = {
+                balance,
+                dailyEarnings,
+                impressions,
+                views,
+                todayImpressions,
+                todayViews,
+                completedTasks,
+                lastCompleted,
+                autoClaimEnabled,
+                lastAutoClaim: lastAutoClaim || 0
+            };
+            localStorage.setItem('easyEarningData', JSON.stringify(data));
+        }
+        
+        // Update the UI
+        function updateUI() {
+            balanceElement.textContent = `₦${balance.toLocaleString()}`;
+            dailyEarningElement.textContent = `+₦${dailyEarnings.toLocaleString()} per day`;
+            impressionsElement.textContent = impressions.toLocaleString();
+            viewsElement.textContent = views.toLocaleString();
+            todayImpressionsElement.textContent = todayImpressions.toLocaleString();
+            todayViewsElement.textContent = todayViews.toLocaleString();
+            autoClaimToggle.checked = autoClaimEnabled;
+            
+            // Update task buttons based on completion status
+            for (const task in completedTasks) {
+                const rewardElement = document.querySelector(`.task-reward[onclick*="${task}"]`);
+                if (rewardElement) {
+                    if (completedTasks[task]) {
+                        rewardElement.classList.add('completed');
+                        rewardElement.textContent = 'Completed';
+                        rewardElement.removeAttribute('onclick');
+                    } else {
+                        rewardElement.classList.remove('completed');
+                        rewardElement.textContent = `₦${taskRewards[task].toLocaleString()}`;
+                    }
+                }
+            }
+        }
+        
+        // Complete a task
+        function completeTask(task, amount) {
+            if (completedTasks[task]) return;
+            
+            // Add to balance
+            balance += amount;
+            dailyEarnings += amount;
+            
+            // Update stats
+            impressions += 100;
+            views += 50;
+            todayImpressions += 10;
+            todayViews += 5;
+            
+            // Mark task as completed
+            completedTasks[task] = true;
+            lastCompleted[task] = Date.now();
+            
+            // Save and update UI
+            saveData();
+            updateUI();
+            
+            // Show success message
+            alert(`Task completed! ₦${amount.toLocaleString()} has been added to your balance.`);
+        }
+        
+        // Claim daily bonus
+        function claimDailyBonus() {
+            if (completedTasks.daily) return;
+            
+            // Add to balance
+            balance += taskRewards.daily;
+            dailyEarnings += taskRewards.daily;
+            
+            // Update stats
+            impressions += 200;
+            views += 100;
+            todayImpressions += 20;
+            todayViews += 10;
+            
+            // Mark task as completed
+            completedTasks.daily = true;
+            lastCompleted.daily = Date.now();
+            
+            // Save and update UI
+            saveData();
+            updateUI();
+            
+            // Show success message
+            alert(`Daily bonus claimed! ₦${taskRewards.daily.toLocaleString()} has been added to your balance.`);
+            
+            // If auto claim is enabled, schedule the next claim
+            if (autoClaimEnabled) {
+                scheduleNextAutoClaim();
+            }
+        }
+        
+        // Start auto claim process
+        function startAutoClaim() {
+            autoClaimEnabled = true;
+            saveData();
+            
+            // Check if we can claim immediately
+            if (!completedTasks.daily) {
+                claimDailyBonus();
+            }
+            
+            // Schedule the next auto claim
+            scheduleNextAutoClaim();
+        }
+        
+        // Stop auto claim process
+        function stopAutoClaim() {
+            autoClaimEnabled = false;
+            clearInterval(autoClaimInterval);
+            saveData();
+        }
+        
+        // Schedule the next auto claim
+        function scheduleNextAutoClaim() {
+            clearInterval(autoClaimInterval);
+            
+            const now = Date.now();
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            const nextClaimTime = lastCompleted.daily + twentyFourHours;
+            const timeUntilNextClaim = nextClaimTime - now;
+            
+            if (timeUntilNextClaim > 0) {
+                // Wait until the 24 hours have passed
+                autoClaimInterval = setTimeout(() => {
+                    if (autoClaimEnabled) {
+                        completedTasks.daily = false;
+                        claimDailyBonus();
+                    }
+                }, timeUntilNextClaim);
+            } else {
+                // Claim immediately if 24 hours have passed
+                if (autoClaimEnabled) {
+                    completedTasks.daily = false;
+                    claimDailyBonus();
+                }
+            }
+        }
+        
+        // Check for pending auto claims from previous sessions
+        function checkPendingAutoClaims() {
+            if (!autoClaimEnabled) return;
+            
+            const now = Date.now();
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            
+            if (lastCompleted.daily && (now - lastCompleted.daily) >= twentyFourHours) {
+                completedTasks.daily = false;
+                claimDailyBonus();
+            }
+        }
+        
+        // Update countdown timers
+        function updateCountdowns() {
+            const now = Date.now();
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            
+            // Update daily countdown
+            if (completedTasks.daily) {
+                const timeLeft = twentyFourHours - (now - lastCompleted.daily);
+                if (timeLeft > 0) {
+                    const hours = Math.floor(timeLeft / (60 * 60 * 1000));
+                    const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
+                    const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
+                    document.getElementById('dailyCountdown').textContent = `Available in ${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    completedTasks.daily = false;
+                    saveData();
+                    updateUI();
+                    
+                    // Auto claim if enabled
+                    if (autoClaimEnabled) {
+                        claimDailyBonus();
+                    }
+                }
+            } else {
+                document.getElementById('dailyCountdown').textContent = 'Available now';
+            }
+            
+            // Update other task countdowns
+            const tasks = ['video', 'survey', 'app', 'newsletter', 'social'];
+            tasks.forEach(task => {
+                if (completedTasks[task]) {
+                    const timeLeft = twentyFourHours - (now - lastCompleted[task]);
+                    if (timeLeft > 0) {
+                        const hours = Math.floor(timeLeft / (60 * 60 * 1000));
+                        const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
+                        const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
+                        document.getElementById(`${task}Countdown`).textContent = `Available in ${hours}h ${minutes}m ${seconds}s`;
+                    } else {
+                        completedTasks[task] = false;
+                        saveData();
+                        updateUI();
+                    }
+                } else {
+                    document.getElementById(`${task}Countdown`).textContent = 'Available now';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

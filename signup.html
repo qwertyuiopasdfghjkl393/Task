@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Easy Earning</title>
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #8a4dcc;
+            --primary-dark: #4b0082;
+            --secondary: #f8d347;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --gray: #888;
+            --dark: #333;
+            --error: #ff4444;
+            --success: #00c851;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background-color: var(--light-gray);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--gray);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .strength-meter {
+            height: 4px;
+            background-color: var(--light-gray);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+        }
+
+        .terms input {
+            margin-right: 10px;
+            margin-top: 3px;
+            accent-color: var(--primary);
+        }
+
+        .terms label {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-container {
+            display: none;
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        .success-container h2 {
+            color: var(--success);
+            margin-bottom: 15px;
+        }
+
+        .success-container p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        .countdown {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .signup-container {
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 25px;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="header">
+            <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="90" fill="white"/>
+                <path d="M70,60 H140 V80 H90 V100 H130 V120 H90 V140 H140 V160 H70 Z" fill="#6a0dad"/>
+                <circle cx="100" cy="100" r="35" fill="#f8d347"/>
+                <circle cx="100" cy="100" r="25" fill="#6a0dad"/>
+                <text x="100" y="108" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle">₦</text>
+            </svg>
+            <h1>Create Your Account</h1>
+            <p>Start earning with Easy Earning today</p>
+        </div>
+
+        <div class="form-container" id="formContent">
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                    <div class="error-message" id="nameError">Please enter a valid name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+                    <div class="error-message" id="emailError">Please enter a valid email</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                    <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                        <span class="toggle-password" id="togglePassword">SHOW</span>
+                    </div>
+                    <div class="strength-meter">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                    <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-container">
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                        <span class="toggle-password" id="toggleConfirmPassword">SHOW</span>
+                    </div>
+                    <div class="error-message" id="confirmPasswordError">Passwords don't match</div>
+                </div>
+
+                <div class="terms">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I confirm that I am at least 18 years old.</label>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    <span id="btnText">Create Account</span>
+                </button>
+            </form>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Log in</a>
+            </div>
+        </div>
+
+        <div class="success-container" id="successContainer">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h2>Account Created!</h2>
+            <p>Your Easy Earning account has been successfully created. Redirecting to your dashboard in <span class="countdown">5</span> seconds...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const signupForm = document.getElementById('signupForm');
+            const formContent = document.getElementById('formContent');
+            const successContainer = document.getElementById('successContainer');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const togglePassword = document.getElementById('togglePassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const strengthBar = document.getElementById('strengthBar');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const countdownElement = document.querySelector('.countdown');
+
+            // Toggle Password Visibility
+            function setupPasswordToggle(inputElement, toggleElement) {
+                toggleElement.addEventListener('click', function() {
+                    const type = inputElement.getAttribute('type') === 'password' ? 'text' : 'password';
+                    inputElement.setAttribute('type', type);
+                    toggleElement.textContent = type === 'password' ? 'SHOW' : 'HIDE';
+                });
+            }
+
+            setupPasswordToggle(passwordInput, togglePassword);
+            setupPasswordToggle(confirmPasswordInput, toggleConfirmPassword);
+
+            // Password Strength Indicator
+            passwordInput.addEventListener('input', function() {
+                const password = passwordInput.value;
+                let strength = 0;
+
+                // Length check
+                if (password.length >= 8) strength += 1;
+                if (password.length >= 12) strength += 1;
+
+                // Complexity checks
+                if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 1;
+                if (/\d/.test(password)) strength += 1;
+                if (/[^a-zA-Z0-9]/.test(password)) strength += 1;
+
+                // Update strength meter
+                const strengthPercent = (strength / 5) * 100;
+                strengthBar.style.width = strengthPercent + '%';
+
+                // Visual feedback
+                if (strength <= 2) {
+                    strengthBar.style.backgroundColor = '#ff4444';
+                } else if (strength <= 3) {
+                    strengthBar.style.backgroundColor = '#ffbb33';
+                } else {
+                    strengthBar.style.backgroundColor = '#00c851';
+                }
+            });
+
+            // Form Validation
+            function showError(elementId, message) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(elementId) {
+                const errorElement = document.getElementById(elementId);
+                errorElement.style.display = 'none';
+            }
+
+            // Real-time validation
+            document.getElementById('fullName').addEventListener('input', function() {
+                if (this.value.trim().length >= 2) {
+                    hideError('nameError');
+                }
+            });
+
+            document.getElementById('email').addEventListener('input', function() {
+                if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value.trim())) {
+                    hideError('emailError');
+                }
+            });
+
+            document.getElementById('phone').addEventListener('input', function() {
+                if (/^[0-9]{11,15}$/.test(this.value.trim())) {
+                    hideError('phoneError');
+                }
+            });
+
+            confirmPasswordInput.addEventListener('input', function() {
+                if (passwordInput.value === this.value) {
+                    hideError('confirmPasswordError');
+                }
+            });
+
+            // Form Submission
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset errors
+                document.querySelectorAll('.error-message').forEach(el => {
+                    el.style.display = 'none';
+                });
+
+                // Validate form
+                let isValid = true;
+
+                // Name validation
+                const fullName = document.getElementById('fullName').value.trim();
+                if (fullName.length < 2) {
+                    showError('nameError', 'Please enter a valid name (at least 2 characters)');
+                    isValid = false;
+                }
+
+                // Email validation
+                const email = document.getElementById('email').value.trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showError('emailError', 'Please enter a valid email address');
+                    isValid = false;
+                }
+
+                // Phone validation
+                const phone = document.getElementById('phone').value.trim();
+                if (!/^[0-9]{11,15}$/.test(phone)) {
+                    showError('phoneError', 'Please enter a valid phone number');
+                    isValid = false;
+                }
+
+                // Password validation
+                const password = passwordInput.value;
+                if (password.length < 8) {
+                    showError('passwordError', 'Password must be at least 8 characters');
+                    isValid = false;
+                }
+
+                // Confirm password
+                if (password !== confirmPasswordInput.value) {
+                    showError('confirmPasswordError', 'Passwords do not match');
+                    isValid = false;
+                }
+
+                // Terms checkbox
+                if (!document.getElementById('agreeTerms').checked) {
+                    alert('Please agree to the terms and conditions');
+                    isValid = false;
+                }
+
+                // If valid, proceed with submission
+                if (isValid) {
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    btnText.innerHTML = '<div class="spinner"></div> Creating Account...';
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Show success state
+                        formContent.style.display = 'none';
+                        successContainer.style.display = 'block';
+                        
+                        // Start countdown
+                        let seconds = 5;
+                        countdownElement.textContent = seconds;
+                        
+                        const countdown = setInterval(() => {
+                            seconds--;
+                            countdownElement.textContent = seconds;
+                            
+                            if (seconds <= 0) {
+                                clearInterval(countdown);
+                                window.location.href = 'dashboard.html';
+                            }
+                        }, 1000);
+                    }, 2000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

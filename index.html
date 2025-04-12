@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Earning NG</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #6f42c1;
+            overflow: hidden;
+        }
+        
+        .logo-container {
+            text-align: center;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 150px;
+            animation: roll 3s ease-in-out;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        @keyframes roll {
+            0% {
+                transform: rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            30% {
+                transform: rotate(360deg) scale(1.2);
+                opacity: 1;
+            }
+            70% {
+                transform: rotate(720deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(720deg) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .circle {
+            fill: #ffffff;
+        }
+        
+        .letter-e {
+            fill: #6f42c1;
+        }
+        
+        .coin {
+            fill: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Circle background -->
+            <circle class="circle" cx="100" cy="100" r="90"/>
+            
+            <!-- Letter E -->
+            <path class="letter-e" d="M70,60 H140 V80 H90 V100 H130 V120 H90 V140 H140 V160 H70 Z"/>
+            
+            <!-- Coin symbol -->
+            <circle class="coin" cx="100" cy="100" r="30"/>
+            <circle cx="100" cy="100" r="20" fill="#6f42c1"/>
+            <text x="100" y="105" font-family="Arial" font-size="20" font-weight="bold" fill="white" text-anchor="middle">₦</text>
+        </svg>
+        
+        <div class="logo-text">Easy Earning NG</div>
+    </div>
+
+    <script>
+        // Redirect to signup page after 20 seconds
+        setTimeout(function() {
+            window.location.href = "signup.html";
+        }, 3000);
+    </script>
+</body>
+</html>
